@@ -1,5 +1,5 @@
 import Buttons from "./components/ui/Buttons";
-import Login from "./screens/Login";
+import Login from "./screens/login/Login";
 
 function App() {
   return (
