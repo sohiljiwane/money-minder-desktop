@@ -15,7 +15,7 @@ const LoginForm = () => {
         type="password"
         placeholder="Password"
       />
-      <SubmitButton />
+      <SubmitButton text="Sign In" />
       <TermsAndConditions />
     </>
   );
