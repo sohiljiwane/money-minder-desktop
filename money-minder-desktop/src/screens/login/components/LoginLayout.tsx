@@ -1,8 +1,5 @@
 import React from "react";
-
-interface ChildrenProps {
-  children: React.ReactNode;
-}
+import { ChildrenProps } from "../../../types/Children";
 
 const LoginLayout: React.FC<ChildrenProps> = ({ children }) => {
   return (
