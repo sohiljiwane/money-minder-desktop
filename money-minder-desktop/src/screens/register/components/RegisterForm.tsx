@@ -6,79 +6,49 @@ const RegisterForm = () => {
     <>
       <form className="px-8 pt-6 pb-8 mb-4 bg-white rounded">
         <div className="mb-4 md:flex md:justify-between">
-          <div className="mb-4 md:mr-2 md:mb-0">
-            <label
-              className="block mb-2 text-sm font-bold"
-              htmlFor="firstName"
-            >
-              First Name
-            </label>
+          <div className="mb-4 md:mr-2 md:mb-0 py-4">
             <input
-              className="w-full px-3 py-2 text-sm leading-tight border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+              className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border"
               id="firstName"
               type="text"
               placeholder="First Name"
             />
           </div>
-          <div className="md:ml-2">
-            <label
-              className="block mb-2 text-sm font-bold"
-              htmlFor="lastName"
-            >
-              Last Name
-            </label>
+          <div className="md:ml-2 py-4">
             <input
-              className="w-full px-3 py-2 text-sm leading-tight border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+              className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border"
               id="lastName"
               type="text"
               placeholder="Last Name"
             />
           </div>
         </div>
-        <div className="mb-4">
-          <label
-            className="block mb-2 text-sm font-bold"
-            htmlFor="email"
-          >
-            Email
-          </label>
+        <div className="mb-4 py-4">
           <input
-            className="w-full px-3 py-2 mb-3 text-sm leading-tight border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+            className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border"
             id="email"
             type="email"
             placeholder="Email"
           />
         </div>
         <div className="mb-4 md:flex md:justify-between">
-          <div className="mb-4 md:mr-2 md:mb-0">
-            <label
-              className="block mb-2 text-sm font-bold "
-              htmlFor="password"
-            >
-              Password
-            </label>
+          <div className="mb-4 md:mr-2 md:mb-0 py-4">
             <input
-              className="w-full px-3 py-2 mb-3 text-sm leading-tight border border-red-500 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+              className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border"
               id="password"
               type="password"
-              placeholder="******************"
+              placeholder="Password"
             />
             <p className="text-xs italic text-red-500">
               Please choose a password.
             </p>
           </div>
-          <div className="md:ml-2">
-            <label
-              className="block mb-2 text-sm font-bold"
-              htmlFor="c_password"
-            >
-              Confirm Password
-            </label>
+          <div className="md:ml-2 py-4">
             <input
-              className="w-full px-3 py-2 mb-3 text-sm leading-tight border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+              className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border"
               id="c_password"
               type="password"
-              placeholder="******************"
+              placeholder="Confirm Password"
             />
           </div>
         </div>
