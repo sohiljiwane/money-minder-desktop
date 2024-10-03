@@ -13,14 +13,14 @@ const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   return (
     <div
-      className={`bg-gray-800 text-white h-screen p-4 ${
+      className={`bg-squeezeGreen text-white h-screen p-4 ${
         isCollapsed ? "w-16" : "w-64"
       } transition-width duration-300`}
     >
       <nav>
         <ul>
         <button
-        className="text-gray-300 focus:outline-none mb-6"
+        className="text-white focus:outline-none mb-6"
         onClick={toggleSidebar}
       >
         <i
@@ -33,7 +33,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             <li key={index} className="mb-6">
               <a
                 href={link.path}
-                className="flex items-center space-x-2 hover:bg-gray-700 p-2 rounded"
+                className="flex items-center space-x-2 hover:bg-darkGreen p-2 rounded"
               >
                 <span className="text-lg">{link.icon}</span>
                 {!isCollapsed && <span>{link.name}</span>}
