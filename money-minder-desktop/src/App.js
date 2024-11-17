@@ -1,10 +1,12 @@
 import Buttons from "./components/ui/Buttons";
+import AppRoutes from "./components/util/AppRoutes";
+import Login from "./screens/login/Login";
+import Register from "./screens/register/Register";
 
 function App() {
   return (
     <>
-      <h1 className="text-3xl font-bold">Money Minder</h1>
-      <Buttons text="Register" />
+      <AppRoutes />
     </>
   );
 }
