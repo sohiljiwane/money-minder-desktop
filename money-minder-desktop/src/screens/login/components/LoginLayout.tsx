@@ -1,5 +1,12 @@
 import React from "react";
+<<<<<<< HEAD
 import { ChildrenProps } from "../../../types/Children";
+=======
+
+interface ChildrenProps {
+  children: React.ReactNode;
+}
+>>>>>>> 41ca0b8 (MMD-29: Create Form for Login Page)
 
 const LoginLayout: React.FC<ChildrenProps> = ({ children }) => {
   return (

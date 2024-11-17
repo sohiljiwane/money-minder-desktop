@@ -15,7 +15,11 @@ const LoginForm = () => {
         type="password"
         placeholder="Password"
       />
+<<<<<<< HEAD
       <SubmitButton text="Sign In" />
+=======
+      <SubmitButton />
+>>>>>>> 41ca0b8 (MMD-29: Create Form for Login Page)
       <TermsAndConditions />
     </>
   );
