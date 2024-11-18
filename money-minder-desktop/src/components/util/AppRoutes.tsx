@@ -7,14 +7,14 @@ import Dashboard from "../../screens/dashboard/Dashboard";
 const AppRoutes: React.FC = () => {
   return (
     <BrowserRouter>
-        <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/" element={<Login />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-        </Routes>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
     </BrowserRouter>
-  )
+  );
 };
 
 export default AppRoutes;
