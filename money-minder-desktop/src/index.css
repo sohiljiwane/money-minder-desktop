@@ -1,3 +1,8 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Prevent dark mode detection */
+:root {
+    color-scheme: light;
+  }
+  
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
