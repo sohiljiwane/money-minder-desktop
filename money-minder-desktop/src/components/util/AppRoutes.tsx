@@ -11,7 +11,7 @@ const AppRoutes: React.FC = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Dashboard id={0} description={""} amount={0} category={""} date={""} />} />
       </Routes>
     </BrowserRouter>
   );
