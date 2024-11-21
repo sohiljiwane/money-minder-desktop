@@ -7,6 +7,9 @@ module.exports = {
         shamrockGreen: "#4de893",
         squeezeGreen: "#90f5b0",
         darkGreen: "#186b15"
+      },
+      width: {
+        inherit: "inherit"
       }
     },
   },

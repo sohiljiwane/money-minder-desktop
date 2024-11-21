@@ -1,13 +1,26 @@
 import React from "react";
 
 type SidebarProps = {
-  links: { name: string; path: string; icon: JSX.Element }[];
   isCollapsed: boolean;
   toggleSidebar: () => void;
 };
 
+const links = [
+  { name: "Dashboard", path: "/dashboard", icon: <i className="fas fa-home"></i> },
+  {
+    name: "Expense",
+    path: "/expense",
+    icon: <i className="fas fa-chart-line"></i>,
+  },
+  { name: "Users", path: "/users", icon: <i className="fas fa-users"></i> },
+  {
+    name: "Settings",
+    path: "/settings",
+    icon: <i className="fas fa-cog"></i>,
+  },
+];
+
 const Sidebar: React.FC<SidebarProps> = ({
-  links,
   isCollapsed,
   toggleSidebar,
 }) => {
