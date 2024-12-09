@@ -3,7 +3,12 @@ import LoginLayout from "./components/LoginLayout";
 import GoogleSignInButton from "./components/GoogleSignInButton";
 import LoginForm from "./components/LoginForm";
 
-const Login = () => {
+interface LoginProps {
+  onLoginSuccess?: (userData: any) => void;
+  onLoginFailure?: (error: Error) => void;
+}
+
+const Login: React.FC<LoginProps> = ({ onLoginSuccess, onLoginFailure }) => {
   return (
     <>
       <LoginLayout>
