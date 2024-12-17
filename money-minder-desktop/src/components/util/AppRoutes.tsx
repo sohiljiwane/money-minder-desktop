@@ -4,6 +4,7 @@ import Login from "../../screens/login/Login";
 import Register from "../../screens/register/Register";
 import Dashboard from "../../screens/dashboard/Dashboard";
 import EditExpense from "../../screens/edit-expense/EditExpense";
+import ExpenseList from "../../screens/expense-list/ExpenseList";
 
 const AppRoutes: React.FC = () => {
   return (
@@ -13,7 +14,8 @@ const AppRoutes: React.FC = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard id={0} description={""} amount={0} category={""} date={""} />} />
-        <Route path="/expense" element={<EditExpense type={"Investment"} amount={""} category={""} date={""} description={""} tags={[]} />} />
+       <Route path="/editExpense" element={<EditExpense id={0} type={"Investment"} amount={0} category={""} expense_date={""} description={""} tags={[]} />} />
+       <Route path="/expense" element={<ExpenseList />} />
       </Routes>
     </BrowserRouter>
   );

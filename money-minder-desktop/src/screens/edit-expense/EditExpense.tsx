@@ -1,4 +1,4 @@
-import React, { useState, KeyboardEvent } from "react";
+import React, { useState, KeyboardEvent, useEffect } from "react";
 import {
   Calendar,
   DollarSign,
@@ -9,15 +9,65 @@ import {
   Eye,
 } from "lucide-react";
 import { Alert, AlertDescription } from "../../components/ui/alert";
-import { ExpenseFormData } from "./types/EditExpense";
+import { ExpenseFormData, TagData } from "./types/EditExpense";
 import SidebarLayout from "../../components/common/SidebarLayout";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
+
+const axiosInstance = axios.create({
+  baseURL: 'http://localhost:3000/api',
+  timeout: 5000,
+});
 
 const EditExpense: React.FC<ExpenseFormData> = () => {
+  const location = useLocation();
+  const { id } = location.state || {};
+  console.log(id);
+
+  const fetchExpense = async () => {
+    try {
+      console.log("API call");
+      const response = await axiosInstance.get<ExpenseFormData & { tags: string[] | TagData[]}>(`/expenses/edit/${id}`);
+      console.log(response.data);
+
+      // Transform tags from objects to strings
+      // Process tags with type checking
+    const processedTags = Array.isArray(response.data.tags)
+    ? response.data.tags.map(tag => {
+        // If tag is already a string, use it directly
+        if (typeof tag === 'string') {
+          return tag.startsWith('#') ? tag : `#${tag}`;
+        }
+        // If tag is an object with tag_name, use tag_name
+        if (tag && 'tag_name' in tag) {
+          const tagName = (tag as {tag_name?: string}).tag_name;
+          return tagName 
+            ? (tagName.startsWith('#') ? tagName : `#${tagName}`)
+            : '';
+        }
+        return '';
+      }).filter(tag => tag !== '')
+    : [];
+      
+        setFormData({
+          ...response.data,
+          tags: processedTags
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    fetchExpense();
+  }, [id]);
+
   const [formData, setFormData] = useState<ExpenseFormData>({
+    id: 0,
     type: "Expense",
-    amount: "",
+    amount: 0,
     category: "",
-    date: new Date().toISOString().split("T")[0],
+    expense_date: new Date().toISOString().split("T")[0].toString(),
     description: "",
     tags: [],
   });
@@ -92,10 +142,11 @@ const EditExpense: React.FC<ExpenseFormData> = () => {
 
   const resetForm = () => {
     setFormData({
+      id: 0,
       type: "Expense",
-      amount: "",
+      amount: 0,
       category: "",
-      date: new Date().toISOString().split("T")[0],
+      expense_date: new Date().toISOString().split("T")[0].toString(),
       description: "",
       tags: [],
     });
@@ -129,7 +180,7 @@ const EditExpense: React.FC<ExpenseFormData> = () => {
           <div className="flex items-center justify-between border-b border-emerald-100 pb-2">
             <span className="text-emerald-600 font-medium">Date:</span>
             <span className="text-gray-700">
-              {new Date(formData.date).toLocaleDateString("en-US", {
+              {new Date(formData.expense_date).toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "long",
                 day: "numeric",
@@ -242,7 +293,7 @@ const EditExpense: React.FC<ExpenseFormData> = () => {
                     <input
                       type="date"
                       name="date"
-                      value={formData.date}
+                      value={formData.expense_date}
                       onChange={handleInputChange}
                       className="pl-10 w-full h-10 border rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                       required
