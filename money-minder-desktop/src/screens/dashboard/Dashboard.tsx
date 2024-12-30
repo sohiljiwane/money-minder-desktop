@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Expense } from "./types/Expense";
+import { Expense } from "../../types/Expense";
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from "recharts";
 import {
   Card,

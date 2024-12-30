@@ -9,31 +9,58 @@ import {
   Eye,
 } from "lucide-react";
 import { Alert, AlertDescription } from "../../components/ui/alert";
-import { ExpenseFormData, TagData } from "./types/EditExpense";
+import { ExpenseFormData } from "../../types/EditExpense";
 import SidebarLayout from "../../components/common/SidebarLayout";
-import { useLocation } from "react-router-dom";
-import axios from "axios";
+import { expenseService } from "../../services/expenseService";
+import { useNavigate, useParams } from "react-router-dom";
 
-const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3000/api',
-  timeout: 5000,
-});
-
-const EditExpense: React.FC<ExpenseFormData> = () => {
-  const location = useLocation();
-  const { id } = location.state || {};
+const EditExpense: React.FC = () => {
+  const { id } = useParams();
   console.log(id);
+  const navigate = useNavigate();
 
+  const validateId = (idParam: string | undefined): number => {
+    if (!idParam) {
+      return 0;
+    }
+
+    const parseId = Number(idParam);
+
+    // Check if the parseId is a valid number and nont NaN
+    if (isNaN(parseId) || !Number.isInteger(parseId) || parseId < 0) {
+      return 0;
+    }
+    return parseId;
+  };
+
+  const validatedId = validateId(id);
+
+  // Redirect to error page or home page if ID is invalid
+  React.useEffect(() => {
+    if (validatedId === 0) {
+      // Navigate to the login page
+      navigate('/login');
+    }
+  }, [validatedId, navigate]);
+
+  const [formData, setFormData] = useState<ExpenseFormData>({
+    id: validatedId,
+    type: "Expense",
+    amount: 0,
+    category: "",
+    expense_date: new Date().toISOString().split("T")[0].toString(),
+    description: "",
+    tags: [],
+  });
+ 
   const fetchExpense = async () => {
     try {
-      console.log("API call");
-      const response = await axiosInstance.get<ExpenseFormData & { tags: string[] | TagData[]}>(`/expenses/edit/${id}`);
-      console.log(response.data);
+      const data = await expenseService.fetchExpense(validatedId);
 
       // Transform tags from objects to strings
       // Process tags with type checking
-    const processedTags = Array.isArray(response.data.tags)
-    ? response.data.tags.map(tag => {
+    const processedTags = Array.isArray(data.tags)
+    ? data.tags.map(tag => {
         // If tag is already a string, use it directly
         if (typeof tag === 'string') {
           return tag.startsWith('#') ? tag : `#${tag}`;
@@ -50,7 +77,7 @@ const EditExpense: React.FC<ExpenseFormData> = () => {
     : [];
       
         setFormData({
-          ...response.data,
+          ...data,
           tags: processedTags
         });
     } catch (err) {
@@ -61,16 +88,6 @@ const EditExpense: React.FC<ExpenseFormData> = () => {
   useEffect(() => {
     fetchExpense();
   }, [id]);
-
-  const [formData, setFormData] = useState<ExpenseFormData>({
-    id: 0,
-    type: "Expense",
-    amount: 0,
-    category: "",
-    expense_date: new Date().toISOString().split("T")[0].toString(),
-    description: "",
-    tags: [],
-  });
 
   const [tagInput, setTagInput] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);

@@ -9,35 +9,20 @@ import { ChevronRight, PlusCircle, Wallet } from "lucide-react";
 import { Button } from "../../components/ui/button";
 import SidebarLayout from "../../components/common/SidebarLayout";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-
-// Sample expense data
-// Type definition for Expense
-interface Expense {
-  id: number;
-  description: string;
-  amount: number;
-  date: string;
-  category: string;
-}
-
-const axiosInstance = axios.create({
-    baseURL: 'http://localhost:3000/api',
-    timeout: 5000,
-  });
+import { ExpenseListProps } from "../../types/ExpenseList";
+import { expenseService } from "../../services/expenseService";
 
 const ExpenseList: React.FC = () => {
   const navigate = useNavigate();
-  const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [expenses, setExpenses] = useState<ExpenseListProps[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   const fetchExpenses = async () => {
     try {
         setIsLoading(true);
-        console.log("API call");
-        const response = await axiosInstance.get<Expense[]>('/expenses/list');
-        setExpenses(response.data);
+        const data = await expenseService.fetchExpenses();
+        setExpenses(data);
         setError(null);
     } catch (err) {
         setError('Failed to fetch expenses');
@@ -52,7 +37,7 @@ const ExpenseList: React.FC = () => {
   }, []);
 
   const handleExpenseClick = (expenseId: number): void => {
-    navigate('/editExpense', { state: { id: expenseId}});
+    navigate(`/editExpense/${expenseId}`, { state: { id: expenseId}});
   };
 
   const handleAddExpense = (): void => {
@@ -81,7 +66,7 @@ const ExpenseList: React.FC = () => {
             </CardHeader>
             <CardContent className="p-0">
               <ul className="divide-y divide-emerald-200">
-                {expenses.map((expense: Expense) => (
+                {expenses.map((expense: ExpenseListProps) => (
                   <li
                     key={expense.id}
                     onClick={() => handleExpenseClick(expense.id)}

@@ -14,7 +14,7 @@ const AppRoutes: React.FC = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard id={0} description={""} amount={0} category={""} date={""} />} />
-       <Route path="/editExpense" element={<EditExpense id={0} type={"Investment"} amount={0} category={""} expense_date={""} description={""} tags={[]} />} />
+       <Route path="/editExpense/:id" element={<EditExpense />} />
        <Route path="/expense" element={<ExpenseList />} />
       </Routes>
     </BrowserRouter>
